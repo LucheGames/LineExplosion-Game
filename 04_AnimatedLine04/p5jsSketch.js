@@ -5,18 +5,19 @@ var randomHue, lineStartX, lineStartY, colourA, colourB;
 var lineArray = [];
 var sparkArray = [];
 var maxLines = 30;
+var maxSparks = 30;
 var isDragged = false;
 var tremor = 0;
 
 function setup() {
 //    titleText = createElement( 'h3', "Backwards Ripple");
 //    infoText = createElement( 'p', "Drag to build snake | Press for circle explosion");
-    createCanvas(windowWidth, windowHeight);
-    ellipseMode(RADIUS);
-    frameRate(30);
-    colorMode(HSB,360,100,100);
+    createCanvas (windowWidth, windowHeight);
+    ellipseMode (RADIUS);
+    frameRate (30);
+    colorMode (HSB,360,100,100);
 //    noStroke();
-    randomHue = random(1, 360);
+    randomHue = random (1, 360);
 //    strokeWeight(400);
 //    stroke(51);
 //    fullscreen();
@@ -30,7 +31,8 @@ function draw() {
     lineArray.forEach(function(line, index, arr) {
         line.show();       
         if (isDragged){
-          line.move();
+          // line.move();
+          line.tremor();
           line.pulse();
         } 
     });
@@ -46,6 +48,7 @@ function draw() {
         }
        
     ArrayBoundsCheck (lineArray, maxLines);
+    ArrayBoundsCheck (sparkArray, maxSparks);
 } // end of draw
 
 function mousePressed() {
@@ -82,7 +85,6 @@ function lineExplosion(targetArray, lineStartX, lineStartY){
         // var pulseDirection = false;
         var line = new DrawLine(lineStartX, lineStartY, mouseX, mouseY, width, hue);
         // push();
-
         lineArray.push(line);
         // pop();
     }
@@ -193,7 +195,23 @@ class DrawLine {
 //                circle.changeBright(70);
 //            }
 //        }
-//      
+//    
+   tremor() {
+      // push();
+      var randoX = random(-this.j, this.j);
+      var randoY = random(-this.j, this.j);
+      translate(randoX, randoY);
+
+      // translate(tremor,tremor);
+
+      // pop();
+      // this.x = this.x + randoX;
+      // this.y = this.y + randoY;
+
+      // this.x2 = this.mouseX + randoX;
+      // this.y2 = this.mouseX + randoY;
+   }
+
    move() {
       // push();
       var randoX = random(-this.j, this.j);
