@@ -135,7 +135,7 @@ class DrawLine {
    }
 
    move() {
-      this.x = this.x + this.vector;
+      this.x = this.x - this.vector;
       this.y = this.y - this.vector;
 
       this.x2 = this.x2 + this.vector;

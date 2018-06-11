@@ -1,10 +1,26 @@
 
-//Have multiple objects
+// 2DO's
+// create multiple line group objects, DONE!
+// on drag shapes should concertina outwards corresponding dynamically with drag distance.
+// make the smear direction random
+
+// EXAMPLES
+// scalar / cos / sin example:
+// https://p5js.org/examples/math-sine-cosine.html
+
+// forces simulation:
+// https://p5js.org/examples/simulate-forces.html
+
+// vectors to determine line direction:
+// https://p5js.org/reference/#/p5.Vector/heading
+
+// ****
 
 // var randomHue, lineStartX, lineStartY, colourA, colourB;
+// var lineStartX, lineStartY; 
 var lineArray = [];
 // var sparkArray = [];
-var maxLines = 30;
+var maxLines = 500;
 // var maxSparks = 30;
 var isDragged = false;
 var tremor = 0;
@@ -26,9 +42,12 @@ function draw() {
         line.show();
         line.move();   
         if (isDragged){
-           tremor += random(-0.5, 0.5);       
+           // tremor += random(-0.5, 0.5);       
           // line.tremor();
           // line.pulse();
+          // line.concertina();
+          line.smear();
+          // line.randomSmear();
         } 
     });
 
@@ -42,7 +61,7 @@ function draw() {
           // tremor -= random(0.01, 0.05);
         }
        
-    //ArrayBoundsCheck (lineArray, maxLines);
+    ArrayBoundsCheck (lineArray, maxLines);
     // ArrayBoundsCheck (sparkArray, maxSparks);
 } // end of draw
 
@@ -60,7 +79,7 @@ function mousePressed() {
 function lineExplosion(targetArray, lineStartX, lineStartY){
     var lineHue = random (1, 360);
     var lineHueVariarion = 40;
-    for (i = 0; i < maxLines; i ++) {
+    for (i = 0; i < maxLines / 5; i ++) {
         var hue = random (0, 360);
         var width = (random (100, 300)); //lineStrokeWeight
         var line = new DrawLine(lineStartX, lineStartY, mouseX, mouseY, width, hue);
@@ -110,7 +129,10 @@ class DrawLine {
         this.j = random(-tremor, tremor);  //jitter
         this.a = random (0.1, 0.7); //alpha
         this.p = false;
-        this.vector = random(-1,1);
+        this.moveDirection0 = random(-1,1);
+        this.moveDirection2 = random(-1,1);
+        // this.origin = createVector(lineStartX, lineStartY);
+        this.v1 = createVector(40, 50);
     }
   
    pulse() {
@@ -134,12 +156,39 @@ class DrawLine {
 
    }
 
-   move() {
-      this.x = this.x + this.vector;
-      this.y = this.y - this.vector;
+   concertina() {
+      this.applyForce(this.v1);
+   }
 
-      this.x2 = this.x2 + this.vector;
-      this.y2 = this.y2 - this.vector;
+   applyForce (force) {
+      var f = p5.Vector.div(force,this.mass);
+      this.acceleration.add(moveDirection);
+  };
+
+  smear() { //45 degrees
+    //make the smear direction random
+      // this.x = this.x + random(-this.moveDirection, this.moveDirection);
+      // this.y = this.y + random(-this.moveDirection, this.moveDirection);
+
+      this.x2 = this.x2 + random(-this.moveDirection, this.moveDirection);
+      this.y2 = this.y2 + random(-this.moveDirection, this.moveDirection);
+  }
+
+  randomSmear() {
+    push();
+    translate(origin.x, origin.y);
+    line(0, 0, vec.x, vec.y);
+    // rotate(vec.heading());
+    pop();
+  }
+
+   move() { 
+
+      this.x = this.x - this.moveDirection;
+      this.y = this.y - this.moveDirection;
+
+      this.x2 = this.x2 + this.moveDirection;
+      this.y2 = this.y2 - this.moveDirection;
 
 
 
