@@ -82,8 +82,8 @@ function mousePressed() {
 }
 
 function lineExplosion(targetArray, lineStartX, lineStartY){
-    var lineHue = random (1, 360);
-    var lineHueVariarion = 40;
+    // var lineHue = random (1, 360);
+    // var lineHueVariarion = 40;
     for (i = 0; i < maxLines / 5; i ++) {
         var hue = random (0, 360);
         var width = (random (100, 300)); //lineStrokeWeight

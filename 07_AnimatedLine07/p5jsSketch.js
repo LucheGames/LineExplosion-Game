@@ -16,74 +16,116 @@
 
 // ****
 
-// var randomHue, lineStartX, lineStartY, colourA, colourB;
-// var lineStartX, lineStartY; 
+var lineStartX, lineStartY, oldLineStartX, oldLineStartY;
 var lineArray = [];
-// var sparkArray = [];
-var maxLines = 500;
-// var maxSparks = 30;
+var newLineArray = [];
+var maxLines = 200;
 var isDragged = false;
-var dragScalar = 0;
+var dragScalar = 1000;
 var tremor = 0;
 
 function setup() {
     createCanvas (windowWidth, windowHeight);
-    ellipseMode (RADIUS);
     frameRate (30);
     colorMode (HSB,360,100,100);
     randomHue = random (1, 360);
+
 }
 
 function draw() {
     background(100);
     background(randomHue, 100, 100, 0.25); // color BG
     randomHue = (randomHue + 0.5)% 360;
-      
-    lineArray.forEach(function(line, index, arr) {
+
+    // var v0 = createVector (lineStartX, lineStartY)
+    // var v1 = createVector (mouseX, mouseY)
+    newLineArray.forEach(function(line, index, newLineArray) {
         line.show();
-        line.move();
-        // line.smear();
-        line.concertina();
         if (isDragged){
-          dragScalar += 0.005;
-           // tremor += random(-0.5, 0.5);       
-          // line.tremor();
-          // line.pulse();
-          // line.concertina();
-          
-          // line.randomSmear();
+          // lineEndX = mouseX;
+          // lineEndY = mouseY;
+          line.dragGhost();
         } 
     });
+      
+    // lineArray.forEach(function(line, index, lineArray) {
+    //     line.show();
+    //     line.move();
 
-    // sparkArray.forEach(function(line, index, arr) {
-    //     spark.show();
-        // line.move();
-        // line.pulse();
+    //     if (isDragged){
+    //       line.exploder();
+    //     } 
     // });
 
-        if (!isDragged) {
-          dragScalar -= 0.1;
-          // tremor -= random(0.01, 0.05);
-        }
+    //     if (!isDragged) {
+
+    //     }
        
-    // ArrayBoundsCheck (lineArray, maxLines);
-    // ArrayBoundsCheck (sparkArray, maxSparks);
+    ArrayBoundsCheck (lineArray, maxLines);
+
 } // end of draw
 
 function mousePressed() {
   // isDragged = true;
-    var lineStartX = mouseX;
-    var lineStartY = mouseY;
+    oldLineStartX = lineStartX;
+    oldLineStartY = lineStartY;
+    lineStartX = mouseX;
+    lineStartY = mouseY;
+
     if (mouseIsPressed) {
-        if (mouseButton === LEFT) {
-            lineExplosion(lineArray, lineStartX, lineStartY);
-        }
+      if (mouseButton === LEFT) {    
+          newLineExplosion(newLineArray);
       }
+      if (mouseButton === RIGHT) {
+        // drawLine(v0, v1, newLineArray);
+        // drawLine(v0, v1.limit(35), newLineArray);
+          // lineExplosion(lineArray, lineStartX, lineStartY);
+      }
+    }
 }
 
+function newLineExplosion(arr){
+    for (i = 0; i < maxLines; i ++) {
+        // var hue = random (0, 360);
+        // var width = (random (100, 300)); //lineStrokeWeight
+        var v0 = createVector (lineStartX, lineStartY);
+        // var v1 = p5.Vector.random2D();
+        var v1 = createVector(oldLineStartX, oldLineStartY);
+        var hue = random (1, 360);
+        var width = (randomGaussian (50, 110));
+        var line = new DrawVectorLine(v0, v1, hue, width);
+        arr.push(line);
+    }
+}
+
+class DrawVectorLine {
+    constructor (startPointVec, endPointVec, hue, width) {
+      this.startX = startPointVec.x;
+      this.startY = startPointVec.y;
+      this.endX = endPointVec.x;
+      this.endY = endPointVec.y;
+      this.hue = hue;
+      this.alpha = random(0.1, 0.9);
+      this.weight = width;
+
+    }
+    show() {
+      strokeWeight(this.weight);
+      stroke(this.hue, 100, 100, this.alpha);
+      line(this.startX, this.startY, this.endX, this.endY);
+    }
+    dragGhost() {
+      var oldLineStartXCopy = oldLineStartX;
+      var oldLineStartYCopy = oldLineStartY;
+      strokeWeight(this.weight);
+      stroke(this.hue, 100, 100, 0.1);
+      line(this.startX, this.startY, oldLineStartXCopy, oldLineStartYCopy);
+    }
+} // end DrawVectorLine class
+
 function lineExplosion(targetArray, lineStartX, lineStartY){
-    var lineHue = random (1, 360);
-    var lineHueVariarion = 40;
+    // var lineHue = random (1, 360);
+    // var lineHueVariarion = 40;
     for (i = 0; i < maxLines / 5; i ++) {
         var hue = random (0, 360);
         var width = (random (100, 300)); //lineStrokeWeight
@@ -94,6 +136,8 @@ function lineExplosion(targetArray, lineStartX, lineStartY){
 
 function mouseDragged () {
   isDragged = true;
+  oldLineStartX = mouseX;
+  oldLineStartY = mouseY;
     // tremor += random(0.01, 0.02);
     // var sparkLineLength = random ( 50, 800);
 
@@ -116,6 +160,7 @@ function mouseDragged () {
 
 function mouseReleased() {
   isDragged = false;
+  newLineExplosion(newLineArray);
   // tremor = 0;
     // line arcs between initial point and release point
     // line explosion at release poinit
@@ -140,7 +185,7 @@ class DrawLine {
         // this.origin = createVector(lineStartX, lineStartY);
         this.v1 = createVector(40, 50);
         this.lineVctorPath = createVector(random(0,windowWidth), random(0,windowHeight));
-        this.maxVectorDistance = randomGaussian(3,4);
+        this.maxVectorDistance = 0.5;
     }
   
    pulse() {
@@ -164,12 +209,22 @@ class DrawLine {
 
    }
 
-   concertina() {
-      if(this.lineVctorPath.x < this.maxVectorDistance){
-        p5.Vector.mult( this.lineVctorPath, dragScalar);
-      }
+   exploder() {
+      // if(this.lineVctorPath.x < this.maxVectorDistance){
+        
+      // }
+      // p5.Vector.mult( this.lineVctorPath, dragScalar);
         this.x2 = this.lineVctorPath.x;
         this.y2 = this.lineVctorPath.y;    
+   }
+
+   concertina() {
+    // similar to exploder but all the lines are parallel to the users drag and pull in and out on an invisable vector
+      // if(this.lineVctorPath.x < this.maxVectorDistance){
+      //   p5.Vector.mult( this.lineVctorPath, dragScalar);
+      // }
+      //   this.x2 = this.lineVctorPath.x;
+      //   this.y2 = this.lineVctorPath.y;    
    }
 
   smear() { //45 degrees
@@ -190,14 +245,16 @@ class DrawLine {
   }
 
    move() { 
+      // keep these for smear movement
+      // this.x = this.x + this.moveDirection;
+      // this.y = this.y + this.moveDirection;
+      // this.x2 = this.x2 + this.moveDirection;
+      // this.y2 = this.y2 + this.moveDirection;
 
-      this.x = this.x - this.moveDirection;
-      this.y = this.y - this.moveDirection;
-
+      // this.x = this.x + this.moveDirection;
+      // this.y = this.y + this.moveDirection;
       this.x2 = this.x2 + this.moveDirection;
-      this.y2 = this.y2 - this.moveDirection;
-
-
+      this.y2 = this.y2 + this.moveDirection;
 
       // push();
       // var randoX = random(-this.j, this.j);
@@ -267,3 +324,4 @@ function ArrayBoundsCheck (arrayToBeChecked, maxLength) {
         arrayToBeChecked.splice(0, arrLength - maxLength);
     }
 }
+
