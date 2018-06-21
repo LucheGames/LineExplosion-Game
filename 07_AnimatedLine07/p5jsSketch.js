@@ -14,6 +14,9 @@
 // vectors to determine line direction:
 // https://p5js.org/reference/#/p5.Vector/heading
 
+// learning more about p5js colorMode();
+// https://p5js.org/learn/color.html
+
 // ****
 
 var lineStartX, lineStartY, oldLineStartX, oldLineStartY;
@@ -29,7 +32,6 @@ function setup() {
     frameRate (30);
     colorMode (HSB,360,100,100);
     randomHue = random (1, 360);
-
 }
 
 function draw() {
@@ -41,12 +43,27 @@ function draw() {
     // var v1 = createVector (mouseX, mouseY)
     newLineArray.forEach(function(line, index, newLineArray) {
         line.show();
+        
+        if (line.alpha <= 0.05) {
+          newLineArray.splice(index,1);
+        }
         if (isDragged){
+          
           // lineEndX = mouseX;
           // lineEndY = mouseY;
-          line.dragGhost();
+          // line.dragGhost();
         } 
     });
+
+      if (isDragged){
+          // lineEndX = mouseX;
+          // lineEndY = mouseY;
+          push();
+          strokeWeight(300);
+          stroke(225, 100, 100, 0.3);
+          line (lineStartX, lineStartY, mouseX, mouseY)
+          pop();
+        } 
       
     // lineArray.forEach(function(line, index, lineArray) {
     //     line.show();
@@ -65,16 +82,21 @@ function draw() {
 
 } // end of draw
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function mousePressed() {
   // isDragged = true;
-    oldLineStartX = lineStartX;
-    oldLineStartY = lineStartY;
+    // oldLineStartX = lineStartX;
+    // oldLineStartY = lineStartY;
     lineStartX = mouseX;
     lineStartY = mouseY;
 
     if (mouseIsPressed) {
       if (mouseButton === LEFT) {    
-          newLineExplosion(newLineArray);
+          // newLineExplosion(newLineArray);
+
       }
       if (mouseButton === RIGHT) {
         // drawLine(v0, v1, newLineArray);
@@ -107,20 +129,23 @@ class DrawVectorLine {
       this.hue = hue;
       this.alpha = random(0.1, 0.9);
       this.weight = width;
-
+    }
+    dimMak(dimmer) {
+      this.alpha -= dimmer;
     }
     show() {
       strokeWeight(this.weight);
       stroke(this.hue, 100, 100, this.alpha);
       line(this.startX, this.startY, this.endX, this.endY);
     }
-    dragGhost() {
-      var oldLineStartXCopy = oldLineStartX;
-      var oldLineStartYCopy = oldLineStartY;
-      strokeWeight(this.weight);
-      stroke(this.hue, 100, 100, 0.1);
-      line(this.startX, this.startY, oldLineStartXCopy, oldLineStartYCopy);
-    }
+    // dragGhost() {
+    //   var oldLineStartXCopy = oldLineStartX;
+    //   var oldLineStartYCopy = oldLineStartY;
+    //   strokeWeight(this.weight);
+    //   stroke(this.hue, 100, 100, 0.1);
+    //   line(this.startX, this.startY, oldLineStartXCopy, oldLineStartYCopy);
+    // }
+
 } // end DrawVectorLine class
 
 function lineExplosion(targetArray, lineStartX, lineStartY){
@@ -138,6 +163,8 @@ function mouseDragged () {
   isDragged = true;
   oldLineStartX = mouseX;
   oldLineStartY = mouseY;
+
+
     // tremor += random(0.01, 0.02);
     // var sparkLineLength = random ( 50, 800);
 
@@ -161,6 +188,17 @@ function mouseDragged () {
 function mouseReleased() {
   isDragged = false;
   newLineExplosion(newLineArray);
+
+  newLineArray.forEach(function(line, index, newLineArray) {
+    line.dimMak(0.15);
+        
+        if (isDragged){
+
+        } 
+    });
+  
+
+
   // tremor = 0;
     // line arcs between initial point and release point
     // line explosion at release poinit
