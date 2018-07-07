@@ -1,0 +1,315 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"line",
+				"lineStartX"
+			],
+			[
+				"create",
+				"createVector"
+			],
+			[
+				"new",
+				"newLineArray"
+			],
+			[
+				"ne",
+				"newLineArray"
+			],
+			[
+				"cr",
+				"createVector"
+			],
+			[
+				"F",
+				"FremtidsFinans"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "09_AnimatedLine09/p5jsSketch.js",
+			"settings":
+			{
+				"buffer_size": 4538,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "09_AnimatedLine09/index.html",
+			"settings":
+			{
+				"buffer_size": 2402,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 573.0,
+		"last_filter": "insta",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Install Package Control"
+			]
+		],
+		"width": 998.0
+	},
+	"console":
+	{
+		"height": 293.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/08_AnimatedLine08",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/09_AnimatedLine09"
+	],
+	"file_history":
+	[
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/08_AnimatedLine08/p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/07_AnimatedLine07/p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/07_AnimatedLine07/index.html",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/06_AnimatedLine06/p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/06_AnimatedLine06/__p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/05_AnimatedLine05/index.html",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/04_AnimatedLine04/p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/05_AnimatedLine05/p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/LineExplosion-Game/03_AnimatedLine03/p5jsSketch.js",
+		"/C/My_Stuff/_REPOS/Portfolio/DesignDave_6.0/css-tests/DD_Bulma_02/bulma.sass",
+		"/C/My_Stuff/_REPOS/Portfolio/DesignDave_6.0/css-tests/DD_Bulma_02/sass/mystyles.scss",
+		"/C/My_Stuff/_REPOS/100DaysOfCode/100-days-of-code/log.md",
+		"/C/My_Stuff/_REPOS/Portfolio/Older/DesignDave_4.0/templates/Info/CV.html",
+		"/C/My_Stuff/_REPOS/Portfolio/DesignDave_6.0/css-tests/DD_Bulma_02/index.html",
+		"/C/Users/Seth/Google Drive/Job_Search/Portfolio/DesignDave6.0/css-tests/DD_Bulma_02/bulma.sass",
+		"/C/Users/Seth/Google Drive/Job_Search/Portfolio/DesignDave6.0/css-tests/DD_Bulma_02/css/mystyles.map",
+		"/C/Users/Seth/Google Drive/Job_Search/Portfolio/DesignDave6.0/css-tests/DD_Bulma_02/css/mystyles.css",
+		"/C/Users/Seth/Google Drive/Job_Search/Portfolio/DesignDave6.0/css-tests/DD_Bulma_02/mystyles.scss",
+		"/C/Users/Seth/Google Drive/Job_Search/Portfolio/DesignDave6.0/Resources/bulma-0.6.1/bulma-0.6.1/index.html",
+		"/C/Users/Seth/Google Drive/Job_Search/Portfolio/DesignDave6.0/Resources/bulma-0.6.1/bulma-0.6.1/bulma.sass",
+		"/C/Program Files/Unity/Editor/Data/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt",
+		"/C/Users/Seth/Desktop/test.html"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 227.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			";\n",
+			"dim",
+			"var",
+			"colourA, colourB"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "09_AnimatedLine09/p5jsSketch.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4538,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3330,
+								3330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2506.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "09_AnimatedLine09/index.html",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2402,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								178,
+								178
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "animatedLine.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 145.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

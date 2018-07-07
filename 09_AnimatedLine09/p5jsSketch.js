@@ -1,3 +1,6 @@
+// polar coordinates > cartesian:
+// https://youtu.be/N633bLi_YCw
+
 function setup() {
     createCanvas (windowWidth, windowHeight);
     frameRate (30);
@@ -5,9 +8,11 @@ function setup() {
     randomHue = random (1, 360);
     lineWidthRange = createVector(15, 130);
     maxLines = 100;
+    maxSparks = 3;
+    sparkLen = 100;
     isDragged = false;
     sparkArray = [];
-    newLineArray = [];
+    lineArray = [];
 }
 
 function draw() {
@@ -15,16 +20,17 @@ function draw() {
     background(randomHue, 100, 100, 0.25); 
     randomHue = (randomHue + 0.5)% 360;
 
-    newLineArray.forEach(function(line, index, newLineArray) {
-        line.show();     
+    lineArray.forEach(function(line, index, lineArray) {        
+        line.colourShift();
+        line.show();    
         if (line.alpha <= 0.05) {
-          newLineArray.splice(index, 1);
+          lineArray.splice(index, 1);
         }
     });
 
     if (isDragged){
       lineGhost();
-      sparkArray.forEach(function(spark, index, newLineArray) {
+      sparkArray.forEach(function(spark, index, lineArray) {
         spark.show();     
         // if (line.alpha <= 0.05) {
         //   newLineArray.splice(index, 1);
@@ -32,6 +38,7 @@ function draw() {
         });
       }      
     // ArrayBoundsCheck (newLineArray, maxLines);
+    ArrayBoundsCheck (sparkArray, maxSparks);
 } // end of draw
 
 function mousePressed() {
@@ -56,9 +63,15 @@ function mouseDragged () {
 
 function mouseReleased() {
     isDragged = false;
-    newLineExplosion(newLineArray);
+    lineExplosion(lineArray);
 
-    newLineArray.forEach(function(line, index, newLineArray) {
+    sparkArray = [];
+
+    // origin = createVector (oldLineStartX, oldLineStartY);
+    // endpoint = createVector(mouseX, mouseY);
+    // originToEndAnim(origin, endpoint);
+
+    lineArray.forEach(function(line, index, newLineArray) {
         if (line.lifeCount > 30) {
           line.dimMak(0.15);
         }      
@@ -67,8 +80,17 @@ function mouseReleased() {
       });
 }
 
-function newLineExplosion(arr){
-    for (i = 0; i < maxLines; i ++) {
+// function originToEndAnim(origin, endpoint) {
+//       strokeWeight(200);
+//       stroke(225, 0, 100, 0.3);
+//       for (var i = 0.001; i < 1; i + 0.001) {
+
+//       }
+//       line (origin.x, origin.y, endpoint.x, endpoint.y);
+// }
+
+function lineExplosion(arr)
+{    for (i = 0; i < maxLines; i ++) {
         var v0 = createVector (lineStartX, lineStartY);
         var v1 = createVector(oldLineStartX, oldLineStartY);
         var hue = random (1, 360);
@@ -92,6 +114,9 @@ class DrawVectorLine {
     dimMak(dimmer) {
       this.alpha -= dimmer;
     }
+    colourShift() {
+      this.hue = (this.hue + random(0.1, 0.5)) % 360;
+    }  
     show() {
       strokeWeight(this.weight);
       stroke(this.hue, 100, 100, this.alpha);
@@ -109,14 +134,21 @@ function randomSparksAtPoint(arr) {
 
 class DrawSpark {
     constructor(){
+      sparkLen = 30;
+      this.origin = createVector(lineStartX, lineStartY);
+      this.direction = createVector(random(-sparkLen, sparkLen), random(-sparkLen, sparkLen));
     }
     show() {
       // push();
+
       strokeWeight(random(10,20));
       stroke(0, 0, 100, 0.7);
       // line (lineStartX, lineStartY, mouseX, mouseY);
       // pop();
-      line (lineStartX, lineStartY, (lineStartX + random(-100, 100)), (lineStartY + random(-100, 100)));
+      // line (this.origin.x, this.origin.y, (this.origin.x + random(-sparkLen, sparkLen)), (this.origin.y + random(-sparkLen, sparkLen)));
+      line (this.origin.x, this.origin.y, this.direction.x, this.direction.y);
+      this.direction.add(this.direction);
+
   }
 }
 
@@ -128,13 +160,13 @@ function lineGhost () {
       push();
       strokeWeight(random(165,170));
       stroke(225, 100, 100, 0.3);
-      line (lineStartX, lineStartY, mouseX, mouseY)
+      line (lineStartX, lineStartY, mouseX, mouseY);
       pop();
 }
 
-// function ArrayBoundsCheck (arrayToBeChecked, maxLength) {
-//     var  arrLength = arrayToBeChecked.length;
-//     if(arrLength  > maxLength){
-//         arrayToBeChecked.splice(0, arrLength - maxLength);
-//     }
-// }
+function ArrayBoundsCheck (arrayToBeChecked, maxLength) {
+    var  arrLength = arrayToBeChecked.length;
+    if(arrLength  > maxLength){
+        arrayToBeChecked.splice(0, arrLength - maxLength);
+    }
+}
